@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  visibility: visible;
+  visibility: hidden;
   transition: all 0.3s linear;
 }
 
@@ -26,6 +26,10 @@
   height: 20px;
   padding: 0;
   border: none;
+}
+
+.modal__close:hover {
+  cursor: pointer;
 }
 
 .modal__title {
@@ -65,11 +69,11 @@
 .modal__radio-input {
   margin-right: 8px;
   margin-bottom: 8px;
-  color: gray;
+  color: black;
 }
 
 .modal__radio-input:checked {
-  color: black;
+  accent-color: black;
 }
 
 .modal__radio-input_last {

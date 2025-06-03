@@ -17,7 +17,7 @@ function Main({ weatherData }) {
             .map((item) => {
               // use map because it iterates through array and returns array
               // key remains here (outermost piece of rendered element)
-              return <ItemCard key={item.id} item={item} />;
+              return <ItemCard key={item._id} item={item} />;
             })}
         </ul>
       </section>
