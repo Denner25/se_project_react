@@ -16,3 +16,5 @@ This is the 10th project of the Software Engineering program at TripleTen. It wa
 - To add more interactivity and expand user features upon acquiring the new React skills from the next sprint.
 
 ## GitHub Pages
+
+https://Denner25.github.io/se_project_react

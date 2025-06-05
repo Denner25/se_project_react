@@ -31,6 +31,12 @@ function App() {
     setSelectedCard(card);
   };
 
+  const handleOverlayClose = (e) => {
+    if (e.target === e.currentTarget) {
+      closeActiveModal();
+    }
+  };
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -52,6 +58,7 @@ function App() {
         buttonText="Add garment"
         activeModal={activeModal}
         onClose={closeActiveModal}
+        onOverlayClose={handleOverlayClose}
       >
         <div className="modal__label-container">
           <label htmlFor="name" className="modal__label">
@@ -125,6 +132,7 @@ function App() {
         activeModal={activeModal}
         card={selectedCard}
         onClose={closeActiveModal}
+        onOverlayClose={handleOverlayClose}
       />
     </div>
   );

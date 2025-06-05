@@ -8,12 +8,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
   visibility: hidden;
   transition: all 0.3s linear;
 }
 
 .modal_opened {
   visibility: visible;
+  opacity: 1;
 }
 
 .modal__close {
@@ -67,6 +69,7 @@
   margin-right: 8px;
   margin-bottom: 8px;
   color: black;
+  cursor: pointer;
 }
 
 .modal__radio-input:checked {
@@ -87,7 +90,7 @@
   display: block;
   width: 100%;
   border: 1px solid;
-  border-color: black;
+  border-color: gray;
   border-top: none;
   border-left: none;
   border-right: none;
@@ -116,6 +119,11 @@
   min-height: 36px;
   border-radius: 6px;
   border: none;
-  background-color: black;
+  background-color: #0000004d;
   color: white;
+  cursor: pointer;
+}
+
+.modal__submit:hover {
+  background-color: #00000099;
 }
