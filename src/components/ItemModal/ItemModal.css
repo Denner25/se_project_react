@@ -1,0 +1,20 @@
+.modal__content_type_image {
+  padding: 0;
+}
+
+.modal__close {
+  background: transparent url(../../assets/close-button-preview-modal.svg)
+    no-repeat;
+}
+
+.modal__description-name {
+  font-size: 20px;
+  margin: 20px auto 12px 32px;
+  line-height: 0.8;
+}
+
+.modal__description-weather {
+  font-size: 20px;
+  line-height: 0.8;
+  margin: 0 auto 32px 32px;
+}

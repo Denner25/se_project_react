@@ -26,9 +26,6 @@
   height: 20px;
   padding: 0;
   border: none;
-}
-
-.modal__close:hover {
   cursor: pointer;
 }
 
