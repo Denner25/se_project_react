@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "CabinetGrotesk";
+  font-style: normal;
+  font-weight: 500;
+  src: url(../../vendor/Fonts/CabinetGrotesk-Medium.woff) format("woff");
+}
+
 .app {
   background-color: #f3f3f3;
   font-family: "CabinetGrotesk", Arial, sans-serif;
