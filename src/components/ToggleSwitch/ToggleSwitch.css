@@ -5,7 +5,7 @@
   border: 2px solid black;
   border-radius: 20px;
   cursor: pointer;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 }
 
@@ -17,10 +17,12 @@
 .toggle-switch__circle {
   background-color: black;
   width: 28px;
-  height: 28px;
+  height: 32px;
   position: absolute;
   border-radius: 50%;
-  left: 0;
+  top: -2px;
+  left: -2px;
+  bottom: -2px;
   transition: all 0.2s;
   /* transition only works to different value of same property
   so while right to left doesn't work left to left does */
@@ -43,4 +45,8 @@
 .toggle-switch__checkbox:checked + .toggle-switch__circle {
   left: 28px;
   right: 0;
+}
+
+.toggle-switch__text_active {
+  color: white;
 }
