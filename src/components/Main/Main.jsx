@@ -1,11 +1,10 @@
 import WeatherCard from "../WeatherCard/WeatherCard";
-import { defaultClothingItems } from "../../utils/constants";
 import ItemCard from "../ItemCard/ItemCard";
 import "./Main.css";
 import { useContext } from "react";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
-function Main({ weatherData, handleCardClick, clothingItems }) {
+function Main({ weatherData, onCardClick, clothingItems }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   return (
     <main>
@@ -21,11 +20,7 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
             .map((item) => (
               // use map because it iterates through array and returns array
               // key remains here (outermost piece of rendered element)
-              <ItemCard
-                key={item._id}
-                item={item}
-                onCardClick={handleCardClick}
-              />
+              <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
             ))}
         </ul>
       </section>
