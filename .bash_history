@@ -48,3 +48,19 @@ cd src/components
 mkdir NavBar
 cd NavBar && touch NavBar.jsx NavBar.css
 npm run dev
+pwd
+git add -A
+git commit -m "set up mock server"
+git push
+npm run deploy
+git add -A
+git commit -m "style profile component"
+git push
+npm run deploy
+git clone https://github.com/Denner25/se_project_aroundtheus.git
+cd ../../
+cd "Sprint 9"
+rm -rf se_project_aroundtheus
+rm -rf se_project_aroundtheus
+npm run dev
+json-server --watch db.json --id _id --port 3001
