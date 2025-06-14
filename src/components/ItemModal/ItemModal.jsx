@@ -15,8 +15,13 @@ function ItemModal({ activeModal, onClose, card, onOverlayClose }) {
         {/* using card.link instead of item.link because we're calling it card in this compenent */}
         <img src={card.imageUrl} alt={card.name} className="modal__image" />
         <div className="modal__description">
-          <h2 className="modal__description-name">{card.name}</h2>
-          <p className="modal__description-weather">Weather: {card.weather}</p>
+          <div className="modal__description-text">
+            <h2 className="modal__description-name">{card.name}</h2>
+            <p className="modal__description-weather">
+              Weather: {card.weather}
+            </p>
+          </div>
+          <button className="modal__delete-button">Delete item</button>
         </div>
       </div>
     </div>
