@@ -11,7 +11,7 @@ import Footer from "../Footer/Footer";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
-import { getItems, addItem } from "../../utils/Api";
+import { getItems, addItem, deleteItem } from "../../utils/Api";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -57,6 +57,17 @@ function App() {
       .catch(console.error);
   };
 
+  const handleDelete = (id) => {
+    deleteItem(id)
+      .then(() => {
+        setClothingItems((prevItems) =>
+          prevItems.filter((item) => item._id !== id)
+        );
+        closeActiveModal();
+      })
+      .catch(console.error);
+  };
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -69,7 +80,7 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
-        setClothingItems(data);
+        setClothingItems(data.sort((a, b) => b._id - a._id));
       })
       .catch(console.error);
   }, []);
@@ -80,7 +91,7 @@ function App() {
     >
       <div className="app">
         <div className="app__content">
-          <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+          <Header onAddClick={handleAddClick} weatherData={weatherData} />
           <Routes>
             <Route
               path="/"
@@ -98,6 +109,7 @@ function App() {
                 <Profile
                   onCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  onAddClick={handleAddClick}
                 />
               }
             />
@@ -115,6 +127,7 @@ function App() {
           card={selectedCard}
           onClose={closeActiveModal}
           onOverlayClose={handleOverlayClose}
+          onDelete={handleDelete}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

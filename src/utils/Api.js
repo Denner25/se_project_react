@@ -22,11 +22,13 @@ function addItem({ name, imageUrl, weather }) {
   }).then(checkResponse);
 }
 
-function deleteCard(id) {
+function deleteItem(id) {
   return fetch(`${baseUrl}/items/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
     method: "DELETE",
-    headers: headers,
   }).then(checkResponse);
 }
 
-export { getItems, addItem };
+export { getItems, addItem, deleteItem };

@@ -8,9 +8,19 @@
   padding: 0;
   margin: 0;
   font-size: 20px;
+  cursor: pointer;
 }
 
 .clothes-section__text {
   font-size: 20px;
   margin: 0 20px 0 0;
+}
+
+.clothes-section__list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  gap: 21px;
 }
