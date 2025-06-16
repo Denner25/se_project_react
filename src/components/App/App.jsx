@@ -128,6 +128,7 @@ function App() {
           onClose={closeActiveModal}
           onOverlayClose={handleOverlayClose}
           onDelete={handleDelete}
+          isOpen={activeModal === "preview"}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>
