@@ -64,3 +64,61 @@ rm -rf se_project_aroundtheus
 rm -rf se_project_aroundtheus
 npm run dev
 json-server --watch db.json --id _id --port 3001
+cd ../../
+cd "Sprint 9"
+git clone https://github.com/Denner25/se_project_aroundtheus.git
+rm -rf se_project_aroundtheus
+sudo rm -rf se_project_aroundtheus
+git clone https://github.com/Denner25/se_project_aroundtheus.git
+cd ~
+rm -rf se_project_aroundtheus
+npm run dev
+npm run dev
+cd ../
+cd ../
+cd "Sprint 10"
+cd se_project_react
+npm run dev
+cd ~
+npm run dev
+git add -A
+git commit -m"implement post api request"
+git push
+npm run deploy
+git add -A
+git commit -m "style delete button"
+git push
+npm run deploy
+git add -A
+git commit -m "implement delete button and profile add new button"
+git push
+npm run deploy
+git add -A
+git commit -m "fix overridden modifiers issue"
+git push
+npm run deploy
+git add -A
+git commit -m "update readme"
+git push
+git add -A
+git commit -m"implement reviewer corrections"
+git push
+npm run deploy
+cd ../
+cd ../
+cd "Sprint 12"
+node index.js
+node
+node index.js
+node index.js
+node index.js
+node index.js
+node index.js
+node index.js
+npm run dev
+cd ~
+npm run dev
+npm run dev
+json-server --watch db.json --id _id --port 3001
+json-server --watch db.json --id _id --port 3001
+json-server --watch db.json --id _id --port 3001
