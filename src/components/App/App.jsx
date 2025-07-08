@@ -53,8 +53,9 @@ function App() {
     }
   };
 
-  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    addItem({ name, imageUrl, weather })
+  const handleAddItem = ({ name, imageUrl, weather }) => {
+    const token = localStorage.getItem("jwt");
+    addItem({ name, imageUrl, weather }, token)
       .then((newItem) => {
         setClothingItems((prevItems) => [newItem, ...prevItems]);
         closeActiveModal();
@@ -63,7 +64,8 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    deleteItem(id)
+    const token = localStorage.getItem("jwt");
+    deleteItem(id, token)
       .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== id)
@@ -76,7 +78,7 @@ function App() {
   const handleSignUp = ({ name, avatar, email, password }) => {
     signUp({ name, avatar, email, password })
       .then(() => {
-        closeActiveModal();
+        handleLogIn({ email, password });
       })
       .catch(console.error);
   };
@@ -173,7 +175,7 @@ function App() {
           onClose={closeActiveModal}
           activeModal={activeModal}
           onOverlayClose={handleOverlayClose}
-          onAddItemModalSubmit={handleAddItemModalSubmit}
+          onAddItem={handleAddItem}
         />
         <ItemModal
           activeModal={activeModal}

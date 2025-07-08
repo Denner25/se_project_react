@@ -10,21 +10,33 @@ function RegisterModal({
   isOpen,
   onLogInClick,
 }) {
-  const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    avatar: "",
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
-    setName("");
-    setAvatar("");
-    setEmail("");
-    setPassword("");
+    setFormData({
+      name: "",
+      avatar: "",
+      email: "",
+      password: "",
+    });
   }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSignUp({ name, avatar, email, password });
+    onSignUp(formData);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -53,8 +65,8 @@ function RegisterModal({
           name="email"
           placeholder="Email"
           required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
         />
       </label>
       <label className="modal__label">
@@ -66,8 +78,8 @@ function RegisterModal({
           placeholder="Password"
           minLength="6"
           required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
         />
       </label>
       <label className="modal__label">
@@ -80,8 +92,8 @@ function RegisterModal({
           minLength="2"
           maxLength="32"
           required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={formData.name}
+          onChange={handleChange}
         />
       </label>
       <label className="modal__label">
@@ -92,8 +104,8 @@ function RegisterModal({
           name="avatar"
           placeholder="Avatar image URL"
           required
-          value={avatar}
-          onChange={(e) => setAvatar(e.target.value)}
+          value={formData.avatar}
+          onChange={handleChange}
         />
       </label>
     </ModalWithForm>

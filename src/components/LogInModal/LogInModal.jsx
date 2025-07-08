@@ -10,17 +10,26 @@ function LogInModal({
   isOpen,
   onSignUpClick,
 }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
-    setEmail("");
-    setPassword("");
+    setFormData({ email: "", password: "" });
   }, [isOpen]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogIn({ email, password });
+    onLogIn(formData);
   };
 
   return (
@@ -49,8 +58,8 @@ function LogInModal({
           name="email"
           placeholder="Email"
           required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
         />
       </label>
       <label className="modal__label">
@@ -62,8 +71,8 @@ function LogInModal({
           placeholder="Password"
           minLength="6"
           required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
         />
       </label>
     </ModalWithForm>
