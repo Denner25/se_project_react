@@ -8,6 +8,7 @@ function ModalWithForm({
   onClose,
   onOverlayClose,
   onSubmit,
+  secondaryButton,
 }) {
   return (
     <div
@@ -23,9 +24,12 @@ function ModalWithForm({
         <h2 className="modal__title">{title}</h2>
         <form onSubmit={onSubmit} className="modal__form">
           {children}
-          <button type="submit" className="modal__submit">
-            {buttonText}
-          </button>
+          <div className="modal__button-group">
+            <button type="submit" className="modal__submit">
+              {buttonText}
+            </button>
+            {secondaryButton}
+          </div>
         </form>
       </div>
     </div>

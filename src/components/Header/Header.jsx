@@ -1,10 +1,9 @@
 import "./Header.css";
 import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom";
 
-function Header({ onAddClick, weatherData }) {
+function Header({ onAddClick, weatherData, onSignUpClick, onLogInClick }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -18,20 +17,23 @@ function Header({ onAddClick, weatherData }) {
       <p className="header__date-and-location">
         {currentDate}, {weatherData.city}
       </p>
-      <ToggleSwitch />
-      <button
-        onClick={onAddClick}
-        type="button"
-        className="header__add-clothes-btn"
-      >
-        + Add clothes
-      </button>
-      <Link className="header__link" to="/profile">
-        <div className="header__user-container">
-          <p className="header__username">Terrence Tegene</p>
-          <img src={avatar} alt="Terrence Tegene" className="header__avatar" />
-        </div>
-      </Link>
+      <div className="header__btn-group">
+        <ToggleSwitch />
+        <button
+          type="button"
+          className="header__auth-btn"
+          onClick={onSignUpClick}
+        >
+          Sign Up
+        </button>
+        <button
+          type="button"
+          className="header__auth-btn"
+          onClick={onLogInClick}
+        >
+          Log In
+        </button>
+      </div>
     </header>
   );
 }

@@ -122,3 +122,60 @@ npm run dev
 json-server --watch db.json --id _id --port 3001
 json-server --watch db.json --id _id --port 3001
 json-server --watch db.json --id _id --port 3001
+npm run dev
+json-server --watch db.json --id _id --port 3001
+cd ~
+pwd
+git add -A
+git commit -m "add cards screenshots to readme"
+git push
+cd ../
+cd ../
+cd "Sprint 12"/express
+npm init -y
+npm install express@^4.21.2
+npm install nodemon -D
+npm start
+cd ../
+git clone https://github.com/Denner25/se_project_express
+cd se_project_express
+~
+~
+pwd
+cd ~
+cd /c/Users/Denner Tallyson/Documents/WebDev/2024/TripleTen/Sprint 12/se_project_express 
+/c/Users/Denner Tallyson/Documents/WebDev/2024/TripleTen/Sprint 12/se_project_express 
+cd ../
+../
+cd ../
+cd "Sprint 12"/se_project_express
+npm init
+.gitignore
+code .gitignore
+touch .gitignore
+npm i express
+git status
+git add -A
+git commit -m "initial commit"
+git push
+npm i eslint@8 eslint-config-airbnb-base@15 eslint-plugin-import@2 --save-dev
+code eslintrc.js
+npx eslint
+npx eslint.
+npx eslint
+npx eslint .
+npm install eslint-config-prettier@8 prettier@2 --save-dev
+npx eslint .
+npx eslint .
+npx eslint .
+npx eslint .
+npx eslint .
+npm run start
+npm run start
+npm install nodemon --save-dev
+npm run start
+npm run dev
+mkdir routes controllers models utils
+npm install mongoose@^8.9.5
+npm run dev
+npm run dev

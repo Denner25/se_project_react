@@ -6,6 +6,8 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
+import LogInModal from "../LogInModal/LogInModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { coordinates, APIkey } from "../../utils/constants";
 import Footer from "../Footer/Footer";
@@ -68,6 +70,16 @@ function App() {
       .catch(console.error);
   };
 
+  const handleRegister = ({ name, avatar, email, password }) => {
+    // Call your register API here, then close modal or handle errors
+    // Example:
+    // registerUser({ name, avatar, email, password })
+    //   .then(() => closeActiveModal())
+    //   .catch(console.error);
+  };
+
+  const handleLogIn = ({ email, password }) => {};
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -91,7 +103,12 @@ function App() {
     >
       <div className="app">
         <div className="app__content">
-          <Header onAddClick={handleAddClick} weatherData={weatherData} />
+          <Header
+            onAddClick={handleAddClick}
+            weatherData={weatherData}
+            onSignUpClick={() => setActiveModal("register")}
+            onLogInClick={() => setActiveModal("log-in")}
+          />
           <Routes>
             <Route
               path="/"
@@ -116,6 +133,20 @@ function App() {
           </Routes>
           <Footer />
         </div>
+        <RegisterModal
+          onClose={closeActiveModal}
+          activeModal={activeModal}
+          onOverlayClose={handleOverlayClose}
+          onRegister={handleRegister}
+          isOpen={activeModal === "register"}
+        />
+        <LogInModal
+          onClose={closeActiveModal}
+          activeModal={activeModal}
+          onOverlayClose={handleOverlayClose}
+          onLogIn={handleLogIn}
+          isOpen={activeModal === "log-in"}
+        />
         <AddItemModal
           onClose={closeActiveModal}
           activeModal={activeModal}
