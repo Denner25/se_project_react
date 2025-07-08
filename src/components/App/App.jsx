@@ -6,14 +6,16 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
-import LogInModal from "../LogInModal/LogInModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import LogInModal from "../LogInModal/LogInModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { coordinates, APIkey } from "../../utils/constants";
 import Footer from "../Footer/Footer";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import Profile from "../Profile/Profile";
 import { getItems, addItem, deleteItem } from "../../utils/Api";
+import { signUp, signIn, checkToken } from "../../utils/auth";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -26,6 +28,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleToggleSwtichChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -70,15 +73,23 @@ function App() {
       .catch(console.error);
   };
 
-  const handleRegister = ({ name, avatar, email, password }) => {
-    // Call your register API here, then close modal or handle errors
-    // Example:
-    // registerUser({ name, avatar, email, password })
-    //   .then(() => closeActiveModal())
-    //   .catch(console.error);
+  const handleSignUp = ({ name, avatar, email, password }) => {
+    signUp({ name, avatar, email, password })
+      .then(() => {
+        closeActiveModal();
+      })
+      .catch(console.error);
   };
 
-  const handleLogIn = ({ email, password }) => {};
+  const handleLogIn = ({ email, password }) => {
+    signIn({ email, password })
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        setIsLoggedIn(true);
+        closeActiveModal();
+      })
+      .catch(console.error);
+  };
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -97,18 +108,27 @@ function App() {
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      checkToken(token)
+        .then((user) => {
+          setIsLoggedIn(true);
+        })
+        .catch(() => {
+          setIsLoggedIn(false);
+          localStorage.removeItem("jwt");
+        });
+    }
+  }, []);
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwtichChange }}
     >
       <div className="app">
         <div className="app__content">
-          <Header
-            onAddClick={handleAddClick}
-            weatherData={weatherData}
-            onSignUpClick={() => setActiveModal("register")}
-            onLogInClick={() => setActiveModal("log-in")}
-          />
+          <Header onAddClick={handleAddClick} weatherData={weatherData} />
           <Routes>
             <Route
               path="/"
@@ -123,11 +143,13 @@ function App() {
             <Route
               path="/profile"
               element={
-                <Profile
-                  onCardClick={handleCardClick}
-                  clothingItems={clothingItems}
-                  onAddClick={handleAddClick}
-                />
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    onCardClick={handleCardClick}
+                    clothingItems={clothingItems}
+                    onAddClick={handleAddClick}
+                  />
+                </ProtectedRoute>
               }
             />
           </Routes>
@@ -137,7 +159,7 @@ function App() {
           onClose={closeActiveModal}
           activeModal={activeModal}
           onOverlayClose={handleOverlayClose}
-          onRegister={handleRegister}
+          onRegister={handleSignUp}
           isOpen={activeModal === "register"}
         />
         <LogInModal
