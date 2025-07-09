@@ -12,6 +12,7 @@ import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { coordinates, APIkey } from "../../utils/constants";
 import Footer from "../Footer/Footer";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Profile from "../Profile/Profile";
 import { getItems, addItem, deleteItem } from "../../utils/Api";
 import { signUp, signIn, checkToken } from "../../utils/auth";
@@ -29,6 +30,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleToggleSwtichChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -52,6 +54,8 @@ function App() {
       closeActiveModal();
     }
   };
+  const handleSignUpClick = () => setActiveModal("register");
+  const handleLogInClick = () => setActiveModal("log-in");
 
   const handleAddItem = ({ name, imageUrl, weather }) => {
     const token = localStorage.getItem("jwt");
@@ -116,77 +120,86 @@ function App() {
       checkToken(token)
         .then((user) => {
           setIsLoggedIn(true);
+          setCurrentUser(user); // Save user info
         })
         .catch(() => {
           setIsLoggedIn(false);
+          setCurrentUser(null);
           localStorage.removeItem("jwt");
         });
     }
   }, []);
 
   return (
-    <CurrentTemperatureUnitContext.Provider
-      value={{ currentTemperatureUnit, handleToggleSwtichChange }}
-    >
-      <div className="app">
-        <div className="app__content">
-          <Header onAddClick={handleAddClick} weatherData={weatherData} />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Main
-                  weatherData={weatherData}
-                  onCardClick={handleCardClick}
-                  clothingItems={clothingItems}
-                />
-              }
+    <CurrentUserContext.Provider value={currentUser}>
+      <CurrentTemperatureUnitContext.Provider
+        value={{ currentTemperatureUnit, handleToggleSwtichChange }}
+      >
+        <div className="app">
+          <div className="app__content">
+            <Header
+              onAddClick={handleAddClick}
+              weatherData={weatherData}
+              onSignUpClick={handleSignUpClick}
+              onLogInClick={handleLogInClick}
             />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Profile
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    weatherData={weatherData}
                     onCardClick={handleCardClick}
                     clothingItems={clothingItems}
-                    onAddClick={handleAddClick}
                   />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-          <Footer />
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Profile
+                      onCardClick={handleCardClick}
+                      clothingItems={clothingItems}
+                      onAddClick={handleAddClick}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+            <Footer />
+          </div>
+          <RegisterModal
+            onClose={closeActiveModal}
+            activeModal={activeModal}
+            onOverlayClose={handleOverlayClose}
+            onRegister={handleSignUp}
+            isOpen={activeModal === "register"}
+          />
+          <LogInModal
+            onClose={closeActiveModal}
+            activeModal={activeModal}
+            onOverlayClose={handleOverlayClose}
+            onLogIn={handleLogIn}
+            isOpen={activeModal === "log-in"}
+          />
+          <AddItemModal
+            onClose={closeActiveModal}
+            activeModal={activeModal}
+            onOverlayClose={handleOverlayClose}
+            onAddItem={handleAddItem}
+          />
+          <ItemModal
+            activeModal={activeModal}
+            card={selectedCard}
+            onClose={closeActiveModal}
+            onOverlayClose={handleOverlayClose}
+            onDelete={handleDelete}
+            isOpen={activeModal === "preview"}
+          />
         </div>
-        <RegisterModal
-          onClose={closeActiveModal}
-          activeModal={activeModal}
-          onOverlayClose={handleOverlayClose}
-          onRegister={handleSignUp}
-          isOpen={activeModal === "register"}
-        />
-        <LogInModal
-          onClose={closeActiveModal}
-          activeModal={activeModal}
-          onOverlayClose={handleOverlayClose}
-          onLogIn={handleLogIn}
-          isOpen={activeModal === "log-in"}
-        />
-        <AddItemModal
-          onClose={closeActiveModal}
-          activeModal={activeModal}
-          onOverlayClose={handleOverlayClose}
-          onAddItem={handleAddItem}
-        />
-        <ItemModal
-          activeModal={activeModal}
-          card={selectedCard}
-          onClose={closeActiveModal}
-          onOverlayClose={handleOverlayClose}
-          onDelete={handleDelete}
-          isOpen={activeModal === "preview"}
-        />
-      </div>
-    </CurrentTemperatureUnitContext.Provider>
+      </CurrentTemperatureUnitContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

@@ -1,9 +1,15 @@
 import "./ItemModal.css";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemModal({ isOpen, onClose, card, onOverlayClose, onDelete }) {
+  const currentUser = useContext(CurrentUserContext);
+
   const handleDelete = () => {
     onDelete(card._id);
   };
+
+  const isOwn = card.owner === currentUser?._id;
 
   return (
     <div
@@ -16,7 +22,6 @@ function ItemModal({ isOpen, onClose, card, onOverlayClose, onDelete }) {
           type="button"
           className="modal__close modal__close_type_preview"
         ></button>
-        {/* using card.link instead of item.link because we're calling it card in this compenent */}
         <img src={card.imageUrl} alt={card.name} className="modal__image" />
         <div className="modal__description">
           <div className="modal__description-text">
@@ -25,9 +30,11 @@ function ItemModal({ isOpen, onClose, card, onOverlayClose, onDelete }) {
               Weather: {card.weather}
             </p>
           </div>
-          <button onClick={handleDelete} className="modal__delete-button">
-            Delete item
-          </button>
+          {isOwn && (
+            <button onClick={handleDelete} className="modal__delete-button">
+              Delete item
+            </button>
+          )}
         </div>
       </div>
     </div>
