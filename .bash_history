@@ -179,3 +179,8 @@ mkdir routes controllers models utils
 npm install mongoose@^8.9.5
 npm run dev
 npm run dev
+pwd
+git add -A
+git commit -m "add CurrentUserContext to app, header, itemModal and clothesSection components"
+git push
+npm run dev

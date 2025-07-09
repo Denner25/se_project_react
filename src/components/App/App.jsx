@@ -14,9 +14,16 @@ import Footer from "../Footer/Footer";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Profile from "../Profile/Profile";
-import { getItems, addItem, deleteItem } from "../../utils/Api";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  addCardLike,
+  removeCardLike,
+} from "../../utils/Api";
 import { signUp, signIn, checkToken } from "../../utils/auth";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -56,6 +63,7 @@ function App() {
   };
   const handleSignUpClick = () => setActiveModal("register");
   const handleLogInClick = () => setActiveModal("log-in");
+  const handleEditProfileClick = () => setActiveModal("edit-profile");
 
   const handleAddItem = ({ name, imageUrl, weather }) => {
     const token = localStorage.getItem("jwt");
@@ -95,6 +103,46 @@ function App() {
         closeActiveModal();
       })
       .catch(console.error);
+  };
+
+  const handleEditProfileSubmit = ({ name, avatar }) => {
+    const token = localStorage.getItem("jwt");
+    updateProfile({ name, avatar }, token)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        closeActiveModal();
+      })
+      .catch(console.error);
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    setActiveModal("");
+  };
+
+  const handleCardLike = ({ _id, likes }) => {
+    const token = localStorage.getItem("jwt");
+    const isLiked = likes.some((id) => id === currentUser?._id);
+
+    if (!isLiked) {
+      addCardLike(_id, token)
+        .then((updatedCard) => {
+          setClothingItems((cards) =>
+            cards.map((item) => (item._id === _id ? updatedCard : item))
+          );
+        })
+        .catch(console.error);
+    } else {
+      removeCardLike(_id, token)
+        .then((updatedCard) => {
+          setClothingItems((cards) =>
+            cards.map((item) => (item._id === _id ? updatedCard : item))
+          );
+        })
+        .catch(console.error);
+    }
   };
 
   useEffect(() => {
@@ -151,6 +199,7 @@ function App() {
                     weatherData={weatherData}
                     onCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
@@ -162,6 +211,9 @@ function App() {
                       onCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       onAddClick={handleAddClick}
+                      onEditProfile={handleEditProfileClick}
+                      onLogOut={handleLogOut}
+                      onCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }
@@ -196,6 +248,13 @@ function App() {
             onOverlayClose={handleOverlayClose}
             onDelete={handleDelete}
             isOpen={activeModal === "preview"}
+          />
+          <EditProfileModal
+            onClose={closeActiveModal}
+            activeModal={activeModal}
+            onOverlayClose={handleOverlayClose}
+            isOpen={activeModal === "edit-profile"}
+            onSubmit={handleEditProfileSubmit}
           />
         </div>
       </CurrentTemperatureUnitContext.Provider>
