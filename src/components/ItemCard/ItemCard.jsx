@@ -9,8 +9,8 @@ function ItemCard({ item, onCardClick, onCardLike }) {
     ? item.likes.some((id) => id === currentUser._id)
     : false;
 
-  const itemLikeButtonClassName = `item-card__like-btn${
-    isLiked ? " item-card__like-btn_active" : ""
+  const itemLikeButtonClassName = `card__like${
+    isLiked ? "card__like_active" : ""
   }`;
 
   const handleCardClick = () => {
@@ -23,22 +23,22 @@ function ItemCard({ item, onCardClick, onCardLike }) {
 
   return (
     <li className="card" key={item._id}>
-      <h2 className="card__name">{item.name}</h2>
+      <div className="card__name-like-container">
+        <h2 className="card__name">{item.name}</h2>
+        {currentUser && (
+          <button
+            className={itemLikeButtonClassName}
+            onClick={handleLike}
+            aria-label="Like"
+          ></button>
+        )}
+      </div>
       <img
         onClick={handleCardClick}
         className="card__image"
-        src={item.imageUrl}
+        src={item.imageUrl || item.link}
         alt={item.name}
       />
-      {currentUser && (
-        <button
-          className={itemLikeButtonClassName}
-          onClick={handleLike}
-          aria-label="Like"
-        >
-          ♥
-        </button>
-      )}
     </li>
   );
 }
