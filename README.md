@@ -1,7 +1,11 @@
 # WTWR - What To Wear
 
-This is the 11th project of the Software Engineering program at TripleTen. It was created using React, CSS, and JavaScript based on the Figma design. It recommends clothing based on current weather and allows the user to delete and add more clothes, it also contains a temperature unit toggle (°F/°C) using context API.
-Cards not displaying due to currently relying on db.json mockserver.
+This is the 14th project of the Software Engineering program at TripleTen. It was created using React, CSS, and JavaScript based on the Figma design. It recommends clothing based on current weather and allows the user to delete and add more clothes, it also contains a temperature unit toggle (°F/°C) using context API. This sprint focused on front-end authentication and web application security, registration, login, adding current user context, protecting routes and adding like/dislike functionality.
+Cards not displaying due to pending back-end connection which will happen in the next sprint.
+
+## Back-end:
+
+https://github.com/Denner25/se_project_express
 
 ![Main component cards](screenshots/main%20cards.png)
 
