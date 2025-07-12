@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter
-      basename="/"
+      basename={import.meta.env.PROD ? "/se_project_react" : undefined}
       future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
     >
       <App />
