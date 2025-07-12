@@ -230,6 +230,7 @@ function App() {
             onOverlayClose={handleOverlayClose}
             onSignUp={handleSignUp}
             isOpen={activeModal === "register"}
+            onLogInClick={handleLogInClick}
           />
           <LogInModal
             onClose={closeActiveModal}
@@ -237,6 +238,7 @@ function App() {
             onOverlayClose={handleOverlayClose}
             onLogIn={handleLogIn}
             isOpen={activeModal === "log-in"}
+            onSignUpClick={handleSignUpClick}
           />
           <AddItemModal
             onClose={closeActiveModal}

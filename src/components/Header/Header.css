@@ -20,13 +20,27 @@
   margin-left: auto;
 }
 
-.header__username {
-  margin: 0;
-}
-
 .header__link {
   text-decoration: none;
   color: black;
+  display: flex;
+  align-items: center;
+}
+
+.header__btn {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-weight: 700;
+  font-size: 20px;
+  max-width: 116px;
+  min-height: 24px;
+}
+
+.header__add-clothes-btn:hover {
+  cursor: pointer;
 }
 
 .header__avatar {

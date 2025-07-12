@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Header({ weatherData, onSignUpClick, onLogInClick }) {
+function Header({ weatherData, onSignUpClick, onLogInClick, onAddClick }) {
   const currentUser = useContext(CurrentUserContext);
 
   const currentDate = new Date().toLocaleString("default", {
@@ -24,20 +24,25 @@ function Header({ weatherData, onSignUpClick, onLogInClick }) {
       <div className="header__btn-group">
         <ToggleSwitch />
         {currentUser ? (
-          <Link className="header__link" to="/profile">
-            <span className="header__username">{currentUser.name}</span>
-            {currentUser.avatar ? (
-              <img
-                src={currentUser.avatar}
-                alt={currentUser.name}
-                className="header__avatar"
-              />
-            ) : (
-              <div className="header__avatar-placeholder">
-                {currentUser.name?.charAt(0).toUpperCase()}
-              </div>
-            )}
-          </Link>
+          <>
+            <button onClick={onAddClick} type="button" className="header__btn">
+              + Add clothes
+            </button>
+            <Link className="header__link" to="/profile">
+              <span className="header__btn">{currentUser.name}</span>
+              {currentUser.avatar ? (
+                <img
+                  src={currentUser.avatar}
+                  alt={currentUser.name}
+                  className="header__avatar"
+                />
+              ) : (
+                <div className="header__avatar-placeholder">
+                  {currentUser.name?.charAt(0).toUpperCase()}
+                </div>
+              )}
+            </Link>
+          </>
         ) : (
           <>
             <button
