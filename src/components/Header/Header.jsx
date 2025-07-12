@@ -24,22 +24,20 @@ function Header({ weatherData, onSignUpClick, onLogInClick }) {
       <div className="header__btn-group">
         <ToggleSwitch />
         {currentUser ? (
-          <div className="header__user-info">
-            <Link to="/profile">
-              {currentUser.avatar ? (
-                <img
-                  src={currentUser.avatar}
-                  alt={currentUser.name}
-                  className="header__avatar"
-                />
-              ) : (
-                <div className="header__avatar-placeholder">
-                  {currentUser.name?.charAt(0).toUpperCase()}
-                </div>
-              )}
-              <span className="header__username">{currentUser.name}</span>
-            </Link>
-          </div>
+          <Link className="header__link" to="/profile">
+            <span className="header__username">{currentUser.name}</span>
+            {currentUser.avatar ? (
+              <img
+                src={currentUser.avatar}
+                alt={currentUser.name}
+                className="header__avatar"
+              />
+            ) : (
+              <div className="header__avatar-placeholder">
+                {currentUser.name?.charAt(0).toUpperCase()}
+              </div>
+            )}
+          </Link>
         ) : (
           <>
             <button

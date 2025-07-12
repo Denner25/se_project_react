@@ -6,7 +6,7 @@ function AddItemModal({
   onClose,
   activeModal,
   onOverlayClose,
-  onAddItemModalSubmit,
+  onAddItem,
   isOpen,
 }) {
   const [name, setName] = useState("");
@@ -33,7 +33,7 @@ function AddItemModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItemModalSubmit({ name, imageUrl, weather });
+    onAddItem({ name, imageUrl, weather });
   };
 
   return (

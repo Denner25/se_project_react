@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import "./App.css";
 import Header from "../Header/Header";
@@ -20,6 +20,7 @@ import {
   deleteItem,
   addCardLike,
   removeCardLike,
+  updateProfile,
 } from "../../utils/Api";
 import { signUp, signIn, checkToken } from "../../utils/auth";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -38,6 +39,7 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
 
   const handleToggleSwtichChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -120,6 +122,7 @@ function App() {
     setIsLoggedIn(false);
     setCurrentUser(null);
     setActiveModal("");
+    navigate("/");
   };
 
   const handleCardLike = ({ _id, likes }) => {
@@ -225,7 +228,7 @@ function App() {
             onClose={closeActiveModal}
             activeModal={activeModal}
             onOverlayClose={handleOverlayClose}
-            onRegister={handleSignUp}
+            onSignUp={handleSignUp}
             isOpen={activeModal === "register"}
           />
           <LogInModal
