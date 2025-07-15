@@ -1,5 +1,5 @@
 {
-  "homepage": "/",
+  "homepage": "https://wtwr.nya.pub",
   "name": "se_project_react",
   "private": true,
   "version": "0.0.0",
@@ -10,7 +10,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && scp -r ./dist/* dennertallyson@wtwr.nya.pub:/home/dennertallyson/frontend"
   },
   "dependencies": {
     "react": "^18.3.1",

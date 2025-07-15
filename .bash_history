@@ -184,3 +184,28 @@ git add -A
 git commit -m "add CurrentUserContext to app, header, itemModal and clothesSection components"
 git push
 npm run dev
+pwd
+git -A
+git add -A
+git add -A
+git commit -m "fix prop inconsistencies, add navigate to logout, softcode sidebar userinfo, fix avatar size"
+git push
+npm run deploy
+git add -A
+git commit -m "fix basename error"
+git push
+npm run deploy
+git add -A
+git commit -m "fix basename error with env var"
+git push
+npm run deploy
+git add -A
+git commit -m "fix signup/signin redirect and header add clothes btn"
+git push
+npm run deploy
+ls ~/.ssh
+cat ~/.ssh/id_ed25519.pub
+ssh-add ~/.ssh/id_ed25519
+eval `ssh-agent -s`
+ssh-add ~/.ssh/id_ed25519
+ssh dennertallyson@34.53.95.190
