@@ -128,7 +128,7 @@ function App() {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser(null);
-    setActiveModal("");
+    closeActiveModal();
     navigate("/");
   };
 
@@ -138,7 +138,7 @@ function App() {
 
     const updateState = (updatedCard) => {
       setClothingItems((cards) =>
-        cards.map((item) => (item._id === _id ? updatedCard : item))
+        cards.map((item) => (item._id === _id ? updatedCard.data : item))
       );
     };
 
