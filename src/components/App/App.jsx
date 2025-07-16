@@ -71,7 +71,7 @@ function App() {
     const token = localStorage.getItem("jwt");
     addItem({ name, imageUrl, weather }, token)
       .then((newItem) => {
-        setClothingItems((prevItems) => [newItem, ...prevItems]);
+        setClothingItems((prevItems) => [newItem.data, ...prevItems]);
         closeActiveModal();
       })
       .catch(console.error);
@@ -161,7 +161,7 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
-        setClothingItems(data.sort((a, b) => b._id - a._id));
+        setClothingItems(data.data.sort((a, b) => b._id - a._id));
       })
       .catch(console.error);
   }, []);
