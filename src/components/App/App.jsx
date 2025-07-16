@@ -102,7 +102,14 @@ function App() {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setIsLoggedIn(true);
-        closeActiveModal();
+        // Fetch user info right after login
+        checkToken(res.token)
+          .then((user) => {
+            setCurrentUser(user);
+            closeActiveModal();
+            navigate("/profile");
+          })
+          .catch(console.error);
       })
       .catch(console.error);
   };
@@ -129,22 +136,16 @@ function App() {
     const token = localStorage.getItem("jwt");
     const isLiked = likes.some((id) => id === currentUser?._id);
 
+    const updateState = (updatedCard) => {
+      setClothingItems((cards) =>
+        cards.map((item) => (item._id === _id ? updatedCard : item))
+      );
+    };
+
     if (!isLiked) {
-      addCardLike(_id, token)
-        .then((updatedCard) => {
-          setClothingItems((cards) =>
-            cards.map((item) => (item._id === _id ? updatedCard : item))
-          );
-        })
-        .catch(console.error);
+      addCardLike(_id, token).then(updateState).catch(console.error);
     } else {
-      removeCardLike(_id, token)
-        .then((updatedCard) => {
-          setClothingItems((cards) =>
-            cards.map((item) => (item._id === _id ? updatedCard : item))
-          );
-        })
-        .catch(console.error);
+      removeCardLike(_id, token).then(updateState).catch(console.error);
     }
   };
 
@@ -171,7 +172,7 @@ function App() {
       checkToken(token)
         .then((user) => {
           setIsLoggedIn(true);
-          setCurrentUser(user); // Save user info
+          setCurrentUser(user);
         })
         .catch(() => {
           setIsLoggedIn(false);
@@ -193,6 +194,8 @@ function App() {
               weatherData={weatherData}
               onSignUpClick={handleSignUpClick}
               onLogInClick={handleLogInClick}
+              currentUser={currentUser}
+              isLoggedIn={isLoggedIn}
             />
             <Routes>
               <Route
@@ -217,6 +220,7 @@ function App() {
                       onEditProfile={handleEditProfileClick}
                       onLogOut={handleLogOut}
                       onCardLike={handleCardLike}
+                      currentUser={currentUser}
                     />
                   </ProtectedRoute>
                 }

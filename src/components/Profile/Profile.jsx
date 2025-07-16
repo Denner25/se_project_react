@@ -3,12 +3,18 @@ import SideBar from "../SideBar/SideBar";
 import "./Profile.css";
 
 function Profile({
+  currentUser,
   clothingItems,
   onCardClick,
   onAddClick,
   onEditProfile,
   onLogOut,
+  onCardLike,
 }) {
+  if (!currentUser) {
+    return <div className="spinner">Loading...</div>;
+  }
+
   return (
     <div className="profile">
       <section className="profile__sidebar">
@@ -19,6 +25,7 @@ function Profile({
           clothingItems={clothingItems}
           onCardClick={onCardClick}
           onAddClick={onAddClick}
+          onCardLike={onCardLike}
         />
       </section>
     </div>

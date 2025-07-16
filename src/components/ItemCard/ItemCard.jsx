@@ -10,7 +10,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
     : false;
 
   const itemLikeButtonClassName = `card__like${
-    isLiked ? "card__like_active" : ""
+    isLiked ? " card__like_active" : ""
   }`;
 
   const handleCardClick = () => {
