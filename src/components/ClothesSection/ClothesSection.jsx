@@ -11,7 +11,6 @@ function ClothesSection({
 }) {
   const currentUser = useContext(CurrentUserContext);
 
-  // Filter items to only those owned by the current user
   const userItems = clothingItems.filter(
     (item) => item.owner === currentUser?._id
   );

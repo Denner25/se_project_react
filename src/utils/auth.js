@@ -1,11 +1,9 @@
+import { checkResponse } from "./Api";
+
 const BASE_URL =
   process.env.NODE_ENV === "production"
     ? "https://api.wtwr.nya.pub"
     : "http://localhost:3001";
-
-function checkResponse(res) {
-  return res.ok ? res.json() : Promise.reject(res);
-}
 
 export function signUp({ name, avatar, email, password }) {
   return fetch(`${BASE_URL}/signup`, {

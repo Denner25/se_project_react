@@ -2,13 +2,7 @@ import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect, useState } from "react";
 
-function AddItemModal({
-  onClose,
-  activeModal,
-  onOverlayClose,
-  onAddItem,
-  isOpen,
-}) {
+function AddItemModal({ onClose, onOverlayClose, onAddItem, isOpen }) {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [weather, setWeather] = useState("");
@@ -41,7 +35,7 @@ function AddItemModal({
       title="New garment"
       buttonText="Add garment"
       onClose={onClose}
-      isOpen={activeModal === "add-garment"}
+      isOpen={isOpen}
       onOverlayClose={onOverlayClose}
       onSubmit={handleSubmit}
     >

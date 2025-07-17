@@ -3,13 +3,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState, useEffect, useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function EditProfileModal({
-  isOpen,
-  onClose,
-  onOverlayClose,
-  onSubmit,
-  activeModal,
-}) {
+function EditProfileModal({ isOpen, onClose, onOverlayClose, onSubmit }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [formData, setFormData] = useState({
@@ -45,7 +39,7 @@ function EditProfileModal({
       buttonText="Save changes"
       buttonClassName="modal__submit modal__submit_type_edit-profile"
       onClose={onClose}
-      isOpen={activeModal === "edit-profile"}
+      isOpen={isOpen}
       onOverlayClose={onOverlayClose}
       onSubmit={handleSubmit}
     >

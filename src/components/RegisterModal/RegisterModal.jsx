@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 
 function RegisterModal({
   onClose,
-  activeModal,
   onOverlayClose,
   onSignUp,
   isOpen,
@@ -44,7 +43,7 @@ function RegisterModal({
       title="Sign Up"
       buttonText="Sign Up"
       onClose={onClose}
-      isOpen={activeModal === "register"}
+      isOpen={isOpen}
       onOverlayClose={onOverlayClose}
       onSubmit={handleSubmit}
       secondaryButton={

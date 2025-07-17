@@ -230,7 +230,6 @@ function App() {
           </div>
           <RegisterModal
             onClose={closeActiveModal}
-            activeModal={activeModal}
             onOverlayClose={handleOverlayClose}
             onSignUp={handleSignUp}
             isOpen={activeModal === "register"}
@@ -238,7 +237,6 @@ function App() {
           />
           <LogInModal
             onClose={closeActiveModal}
-            activeModal={activeModal}
             onOverlayClose={handleOverlayClose}
             onLogIn={handleLogIn}
             isOpen={activeModal === "log-in"}
@@ -246,12 +244,11 @@ function App() {
           />
           <AddItemModal
             onClose={closeActiveModal}
-            activeModal={activeModal}
             onOverlayClose={handleOverlayClose}
             onAddItem={handleAddItem}
+            isOpen={activeModal === "add-garment"}
           />
           <ItemModal
-            activeModal={activeModal}
             card={selectedCard}
             onClose={closeActiveModal}
             onOverlayClose={handleOverlayClose}
@@ -260,7 +257,6 @@ function App() {
           />
           <EditProfileModal
             onClose={closeActiveModal}
-            activeModal={activeModal}
             onOverlayClose={handleOverlayClose}
             isOpen={activeModal === "edit-profile"}
             onSubmit={handleEditProfileSubmit}

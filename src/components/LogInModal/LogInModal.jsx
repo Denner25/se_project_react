@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 
 function LogInModal({
   onClose,
-  activeModal,
   onOverlayClose,
   onLogIn,
   isOpen,
@@ -37,7 +36,7 @@ function LogInModal({
       title="Log In"
       buttonText="Log In"
       onClose={onClose}
-      isOpen={activeModal === "log-in"}
+      isOpen={isOpen}
       onOverlayClose={onOverlayClose}
       onSubmit={handleSubmit}
       secondaryButton={
