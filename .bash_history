@@ -209,3 +209,6 @@ ssh-add ~/.ssh/id_ed25519
 eval `ssh-agent -s`
 ssh-add ~/.ssh/id_ed25519
 ssh dennertallyson@34.53.95.190
+npm run dev
+ssh dennertallyson@34.53.95.190
+ssh dennertallyson@34.53.95.190

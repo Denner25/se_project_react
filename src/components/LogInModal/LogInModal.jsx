@@ -1,6 +1,7 @@
 import "./LogInModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import useFormValidator from "../../hooks/useFormValidator";
 
 function LogInModal({
   onClose,
@@ -10,26 +11,25 @@ function LogInModal({
   isOpen,
   onSignUpClick,
 }) {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const { values, errors, isValid, handleChange, resetForm } = useFormValidator(
+    {
+      email: "",
+      password: "",
+    }
+  );
+  const [serverError, setServerError] = useState("");
 
   useEffect(() => {
-    setFormData({ email: "", password: "" });
+    resetForm();
+    setServerError("");
   }, [isOpen]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogIn(formData);
+    onLogIn(values).catch((err) => {
+      console.error(err);
+      setServerError("Email or password incorrect");
+    });
   };
 
   return (
@@ -40,6 +40,7 @@ function LogInModal({
       isOpen={activeModal === "log-in"}
       onOverlayClose={onOverlayClose}
       onSubmit={handleSubmit}
+      isDisabled={!isValid}
       secondaryButton={
         <button
           type="button"
@@ -58,9 +59,10 @@ function LogInModal({
           name="email"
           placeholder="Email"
           required
-          value={formData.email}
+          value={values.email}
           onChange={handleChange}
         />
+        <span className="modal__error">{errors.email}</span>
       </label>
       <label className="modal__label">
         Password
@@ -69,12 +71,16 @@ function LogInModal({
           className="modal__input"
           name="password"
           placeholder="Password"
-          minLength="6"
+          minLength={6}
           required
-          value={formData.password}
+          value={values.password}
           onChange={handleChange}
         />
+        <span className="modal__error">{errors.password}</span>
       </label>
+      {serverError && (
+        <span className="modal__error modal__error_server">{serverError}</span>
+      )}
     </ModalWithForm>
   );
 }

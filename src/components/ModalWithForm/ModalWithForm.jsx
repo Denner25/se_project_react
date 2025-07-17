@@ -1,4 +1,5 @@
 import "./ModalWithForm.css";
+import useFormValidator from "../../hooks/useFormValidator";
 
 function ModalWithForm({
   children,
@@ -9,8 +10,10 @@ function ModalWithForm({
   onOverlayClose,
   onSubmit,
   secondaryButton,
-  buttonClassName,
+  initialValues,
 }) {
+  const { isValid } = useFormValidator(initialValues);
+
   return (
     <div
       className={`modal${isOpen ? " modal_opened" : ""}`}
@@ -28,7 +31,10 @@ function ModalWithForm({
           <div className="modal__button-group">
             <button
               type="submit"
-              className={buttonClassName || "modal__submit"}
+              className={`modal__submit${
+                !isValid ? " modal__submit_disabled" : ""
+              }`}
+              disabled={!isValid}
             >
               {buttonText}
             </button>

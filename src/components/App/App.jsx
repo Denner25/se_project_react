@@ -80,9 +80,9 @@ function App() {
   const handleDelete = (id) => {
     const token = localStorage.getItem("jwt");
     deleteItem(id, token)
-      .then(() => {
+      .then((res) => {
         setClothingItems((prevItems) =>
-          prevItems.filter((item) => item._id !== id)
+          prevItems.filter((item) => item._id !== res.data._id)
         );
         closeActiveModal();
       })
@@ -98,20 +98,15 @@ function App() {
   };
 
   const handleLogIn = ({ email, password }) => {
-    signIn({ email, password })
-      .then((res) => {
-        localStorage.setItem("jwt", res.token);
-        setIsLoggedIn(true);
-        // Fetch user info right after login
-        checkToken(res.token)
-          .then((user) => {
-            setCurrentUser(user);
-            closeActiveModal();
-            navigate("/profile");
-          })
-          .catch(console.error);
-      })
-      .catch(console.error);
+    return signIn({ email, password }).then((res) => {
+      localStorage.setItem("jwt", res.token);
+      setIsLoggedIn(true);
+      return checkToken(res.token).then((user) => {
+        setCurrentUser(user);
+        closeActiveModal();
+        navigate("/profile");
+      });
+    });
   };
 
   const handleEditProfileSubmit = ({ name, avatar }) => {
