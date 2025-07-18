@@ -8,7 +8,17 @@ function useFormValidator(initialValues) {
   function handleChange(e) {
     const { name, value, validationMessage, form } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: validationMessage }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]:
+        name === "weather"
+          ? value
+            ? ""
+            : "Please select a weather type."
+          : validationMessage,
+    }));
+
     setIsValid(form.checkValidity());
   }
 

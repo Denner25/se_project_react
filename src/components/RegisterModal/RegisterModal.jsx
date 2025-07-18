@@ -1,6 +1,7 @@
 import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import useFormValidator from "../../hooks/useFormValidator";
 
 function RegisterModal({
   onClose,
@@ -10,33 +11,24 @@ function RegisterModal({
   isOpen,
   onLogInClick,
 }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    avatar: "",
-    email: "",
-    password: "",
-  });
-
-  useEffect(() => {
-    setFormData({
+  const { values, errors, isValid, handleChange, resetForm } = useFormValidator(
+    {
       name: "",
       avatar: "",
       email: "",
       password: "",
-    });
+    }
+  );
+
+  useEffect(() => {
+    resetForm();
   }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSignUp(formData);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (isValid) {
+      onSignUp(values);
+    }
   };
 
   return (
@@ -47,6 +39,7 @@ function RegisterModal({
       isOpen={activeModal === "register"}
       onOverlayClose={onOverlayClose}
       onSubmit={handleSubmit}
+      isValid={isValid}
       secondaryButton={
         <button
           type="button"
@@ -65,9 +58,10 @@ function RegisterModal({
           name="email"
           placeholder="Email"
           required
-          value={formData.email}
+          value={values.email}
           onChange={handleChange}
         />
+        <span className="modal__error">{errors.email}</span>
       </label>
       <label className="modal__label">
         Password *
@@ -78,9 +72,10 @@ function RegisterModal({
           placeholder="Password"
           minLength="6"
           required
-          value={formData.password}
+          value={values.password}
           onChange={handleChange}
         />
+        <span className="modal__error">{errors.password}</span>
       </label>
       <label className="modal__label">
         Name *
@@ -92,9 +87,10 @@ function RegisterModal({
           minLength="2"
           maxLength="32"
           required
-          value={formData.name}
+          value={values.name}
           onChange={handleChange}
         />
+        <span className="modal__error">{errors.name}</span>
       </label>
       <label className="modal__label">
         Avatar URL*
@@ -104,9 +100,10 @@ function RegisterModal({
           name="avatar"
           placeholder="Avatar image URL"
           required
-          value={formData.avatar}
+          value={values.avatar}
           onChange={handleChange}
         />
+        <span className="modal__error">{errors.avatar}</span>
       </label>
     </ModalWithForm>
   );

@@ -1,6 +1,7 @@
 import "./EditProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useState, useEffect, useContext } from "react";
+import useFormValidator from "../../hooks/useFormValidator";
+import { useContext, useEffect } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function EditProfileModal({
@@ -12,31 +13,27 @@ function EditProfileModal({
 }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    avatar: "",
-  });
+  const { values, errors, isValid, handleChange, resetForm } = useFormValidator(
+    {
+      name: "",
+      avatar: "",
+    }
+  );
 
   useEffect(() => {
     if (isOpen && currentUser) {
-      setFormData({
-        name: currentUser.name,
-        avatar: currentUser.avatar,
+      resetForm({
+        name: currentUser.name || "",
+        avatar: currentUser.avatar || "",
       });
     }
   }, [isOpen, currentUser]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    if (isValid) {
+      onSubmit(values);
+    }
   };
 
   return (
@@ -48,6 +45,7 @@ function EditProfileModal({
       isOpen={activeModal === "edit-profile"}
       onOverlayClose={onOverlayClose}
       onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <label className="modal__label">
         Name *
@@ -59,9 +57,10 @@ function EditProfileModal({
           minLength="2"
           maxLength="30"
           required
-          value={formData.name}
+          value={values.name}
           onChange={handleChange}
         />
+        <span className="modal__error">{errors.name}</span>
       </label>
       <label className="modal__label">
         Avatar *
@@ -71,9 +70,10 @@ function EditProfileModal({
           name="avatar"
           placeholder="Avatar image URL"
           required
-          value={formData.avatar}
+          value={values.avatar}
           onChange={handleChange}
         />
+        <span className="modal__error">{errors.avatar}</span>
       </label>
     </ModalWithForm>
   );

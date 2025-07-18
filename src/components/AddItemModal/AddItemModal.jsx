@@ -1,6 +1,7 @@
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useFormValidator from "../../hooks/useFormValidator";
 
 function AddItemModal({
   onClose,
@@ -9,31 +10,27 @@ function AddItemModal({
   onAddItem,
   isOpen,
 }) {
-  const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [weather, setWeather] = useState("");
+  const { values, errors, isValid, handleChange, resetForm } = useFormValidator(
+    {
+      name: "",
+      imageUrl: "",
+      weather: "",
+    }
+  );
 
   useEffect(() => {
-    setName("");
-    setImageUrl("");
-    setWeather("");
+    resetForm();
   }, [isOpen]);
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleImageUrleChange = (e) => {
-    setImageUrl(e.target.value);
-  };
-
-  const handleWeatherChange = (e) => {
-    setWeather(e.target.value);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, imageUrl, weather });
+    if (isValid) {
+      onAddItem({
+        name: values.name,
+        imageUrl: values.imageUrl,
+        weather: values.weather,
+      });
+    }
   };
 
   return (
@@ -44,13 +41,12 @@ function AddItemModal({
       isOpen={activeModal === "add-garment"}
       onOverlayClose={onOverlayClose}
       onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <div className="modal__label-container">
         <label htmlFor="name" className="modal__label">
           Name
           <input
-            // all inputs must be controlled inputs with two way
-            // flow in the dev tools components hooks tab
             type="text"
             className="modal__input"
             id="name"
@@ -59,9 +55,10 @@ function AddItemModal({
             required
             minLength="1"
             maxLength="30"
-            onChange={handleNameChange}
-            value={name}
+            value={values.name}
+            onChange={handleChange}
           />
+          <span className="modal__error">{errors.name}</span>
         </label>
       </div>
       <div className="modal__label-container">
@@ -74,9 +71,10 @@ function AddItemModal({
             placeholder="Image URL"
             name="imageUrl"
             required
-            onChange={handleImageUrleChange}
-            value={imageUrl}
+            value={values.imageUrl}
+            onChange={handleChange}
           />
+          <span className="modal__error">{errors.imageUrl}</span>
         </label>
       </div>
       <fieldset className="modal__radio-buttons">
@@ -86,10 +84,11 @@ function AddItemModal({
             id="hot"
             type="radio"
             className="modal__radio-input"
-            name="weatherType"
+            name="weather"
             value="hot"
-            onChange={handleWeatherChange}
-            checked={weather === "hot"}
+            onChange={handleChange}
+            checked={values.weather === "hot"}
+            required
           />
           <label htmlFor="hot" className="modal__label modal__label_type_radio">
             Hot
@@ -100,10 +99,11 @@ function AddItemModal({
             id="warm"
             type="radio"
             className="modal__radio-input"
-            name="weatherType"
+            name="weather"
             value="warm"
-            onChange={handleWeatherChange}
-            checked={weather === "warm"}
+            onChange={handleChange}
+            checked={values.weather === "warm"}
+            required
           />
           <label
             htmlFor="warm"
@@ -117,10 +117,11 @@ function AddItemModal({
             id="cold"
             type="radio"
             className="modal__radio-input modal__radio-input_last"
-            name="weatherType"
+            name="weather"
             value="cold"
-            onChange={handleWeatherChange}
-            checked={weather === "cold"}
+            onChange={handleChange}
+            checked={values.weather === "cold"}
+            required
           />
           <label
             htmlFor="cold"
@@ -129,6 +130,7 @@ function AddItemModal({
             Cold
           </label>
         </div>
+        <span className="modal__error">{errors.weather}</span>
       </fieldset>
     </ModalWithForm>
   );

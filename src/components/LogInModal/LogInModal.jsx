@@ -41,6 +41,7 @@ function LogInModal({
       onOverlayClose={onOverlayClose}
       onSubmit={handleSubmit}
       isDisabled={!isValid}
+      isValid={isValid}
       secondaryButton={
         <button
           type="button"
