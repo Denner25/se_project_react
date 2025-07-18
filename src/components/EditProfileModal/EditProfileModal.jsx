@@ -40,7 +40,6 @@ function EditProfileModal({
     <ModalWithForm
       title="Change profile data"
       buttonText="Save changes"
-      buttonClassName="modal__submit modal__submit_type_edit-profile"
       onClose={onClose}
       isOpen={activeModal === "edit-profile"}
       onOverlayClose={onOverlayClose}
