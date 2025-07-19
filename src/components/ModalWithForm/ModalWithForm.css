@@ -114,14 +114,18 @@
 }
 
 .modal__submit {
-  max-width: 124px;
+  max-width: 129px;
   min-height: 36px;
   padding: 0 17px;
   border-radius: 6px;
   border: none;
-  background-color: #0000004d;
+  background-color: black;
   color: white;
   cursor: pointer;
+}
+
+.modal__submit_disabled {
+  background-color: #0000004d;
 }
 
 .modal__submit:hover {
@@ -143,4 +147,8 @@
   color: black;
   opacity: 0.5;
   cursor: pointer;
+}
+
+.modal__secondary:hover {
+  opacity: 1;
 }

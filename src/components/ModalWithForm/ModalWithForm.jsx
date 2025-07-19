@@ -9,7 +9,7 @@ function ModalWithForm({
   onOverlayClose,
   onSubmit,
   secondaryButton,
-  buttonClassName,
+  isValid,
 }) {
   return (
     <div
@@ -28,7 +28,10 @@ function ModalWithForm({
           <div className="modal__button-group">
             <button
               type="submit"
-              className={buttonClassName || "modal__submit"}
+              className={`modal__submit${
+                !isValid ? " modal__submit_disabled" : ""
+              }`}
+              disabled={!isValid}
             >
               {buttonText}
             </button>
