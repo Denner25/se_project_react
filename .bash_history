@@ -212,3 +212,11 @@ ssh dennertallyson@34.53.95.190
 npm run dev
 ssh dennertallyson@34.53.95.190
 ssh dennertallyson@34.53.95.190
+cd ../se_project_express && npm run dev
+npm run dev
+npm run dev
+ssh dennertallyson@34.53.95.190
+cd ../se_project_express && npm run dev
+npm run dev
+npm run dev
+ssh dennertallyson@34.53.95.190
