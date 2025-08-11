@@ -1,8 +1,6 @@
 # WTWR – What To Wear  
 **Full-stack weather-based clothing recommendation app**
 
-![WTWR Preview](optional-screenshot-or-gif-link)
-
 ## Overview  
 WTWR (“What To Wear”) recommends clothing based on current weather conditions. Users can register, log in, manage their wardrobe, like/dislike items, and toggle temperature units (°F/°C).
 
