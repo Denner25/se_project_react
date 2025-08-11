@@ -1,35 +1,52 @@
-# WTWR - What To Wear
+# WTWR – What To Wear  
+**Full-stack weather-based clothing recommendation app**
 
-This is the 14th project of the Software Engineering program at TripleTen. It was created using React, CSS, and JavaScript based on the Figma design. It recommends clothing based on current weather and allows the user to delete and add more clothes, it also contains a temperature unit toggle (°F/°C) using context API. This sprint focused on front-end authentication and web application security, registration, login, adding current user context, protecting routes and adding like/dislike functionality.
+![WTWR Preview](optional-screenshot-or-gif-link)
 
-## Deployed application:
+## Overview  
+WTWR (“What To Wear”) recommends clothing based on current weather conditions. Users can register, log in, manage their wardrobe, like/dislike items, and toggle temperature units (°F/°C).
 
-Frontend: https://wtwr.nya.pub
-Backend: https://api.wtwr.nya.pub
+This is a **full-stack application** built as part of the Software Engineering program at **TripleTen**:  
+- **Front-end:** React, CSS, JavaScript, Context API, React Router  
+- **Back-end:** Node.js, Express.js, MongoDB, JWT Authentication ([back-end repository](https://github.com/Denner25/se_project_express))
 
-## Back-end:
+**Deployed application:**  
+- Frontend: [wtwr.nya.pub](https://wtwr.nya.pub)  
+- Backend API: [api.wtwr.nya.pub](https://api.wtwr.nya.pub)
 
-https://github.com/Denner25/se_project_express
+---
 
-![Main component cards](screenshots/main%20cards.png)
+## Features  
+- **Weather-based recommendations** using live API data  
+- **User authentication** with JWT and protected routes  
+- **Add, delete, and like/dislike clothing items**  
+- **Responsive UI** with reusable functional components  
+- **Temperature unit toggle** (°F/°C) using Context API  
+- **API integration** with custom backend services  
 
-![Profile component cards](screenshots/profile%20cards.png)
+---
 
-## Project features
+## Tech Stack  
 
-- React hooks
-- Reusable functional components
-- Context API
-- React Router
-- JavaScript
-- API integration
-- Flexbox
+### Front-end  
+- React (Hooks & Context API)  
+- JavaScript (ES6+)  
+- CSS / Flexbox  
+- React Router  
 
-## Plan on improving the project
+### Back-end  
+- Node.js + Express.js  
+- MongoDB + Mongoose  
+- JWT Authentication  
+- Centralized error handling & request validation  
 
-- Add a more responsive and mobile version to current project.
-- Add a filter component to profile component.
+---
 
-## GitHub Pages
+## Future Improvements  
+- Enhance responsive design for mobile devices  
+- Add clothing item filters in the profile view  
+- Expand weather-based recommendation rules  
 
-https://Denner25.github.io/se_project_react
+---
+
+**GitHub Pages:** [https://denner25.github.io/se_project_react](https://denner25.github.io/se_project_react)
